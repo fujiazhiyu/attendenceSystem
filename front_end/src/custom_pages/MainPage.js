@@ -17,6 +17,26 @@ class MainPage extends Component {
     };
   }
 
+  fetchData=() => {
+    fetch('http://end.attendsys.com:3000/staffAccount', {
+      method: 'POST',
+      mode: 'cors',
+      data: {
+          token: auth.getToken(),
+          workId: auth.getAccount(),
+        }
+    }).then(function(res) {
+      if(res.status === 'ok') {
+        return res.json()
+      }else {
+        return ''
+      }
+    }).then(function(data) {
+      return data
+    })
+  };
+
+
   onCollapseChange() {
     this.setState((prevState, props) => ({
       collapse: !prevState.collapse,

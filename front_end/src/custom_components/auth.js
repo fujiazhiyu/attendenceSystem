@@ -51,6 +51,7 @@ function pretendRequest(email, pass, cb) {
     id: '201612003', username: 'yuergou', password: '02219303', position: '0'
   }]
   setTimeout(() => {
+    var accountInfa = fetchData()
     var authInfo = accountInfo.filter(function(item, index, array) {
       return item.username === email && item.password === pass
     })
@@ -65,4 +66,19 @@ function pretendRequest(email, pass, cb) {
       cb({ authenticated: false })
     }
   }, 0)
+};
+
+function fetchData() {
+  fetch('http://end.attendsys.com:3000/staffInfo', {
+    method: 'POST',
+    mode: 'cors',
+  }).then(function(res) {
+    if(res.status === 'ok') {
+      return res.json()
+    }else {
+      return ''
+    }
+  }).then(function(data) {
+    return data
+  })
 };
